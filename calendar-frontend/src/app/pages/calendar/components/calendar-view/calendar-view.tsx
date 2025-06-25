@@ -20,13 +20,15 @@ interface ICalendarViewProps {
   onNavigate: (date: Date, view: View) => void;
   events: EltEvent[];
   showIds: boolean;
-  setSelectedEvent: (event: EltEvent) => void;
+  selectedEvent?: EltEvent;
+  setSelectedEvent: (event: EltEvent | undefined) => void;
 }
 
 export const CalendarView = ({
   onNavigate,
   events,
   showIds,
+  selectedEvent,
   setSelectedEvent,
 }: ICalendarViewProps) => {
   const { components } = useCalendarView(showIds);
@@ -50,6 +52,9 @@ export const CalendarView = ({
       style={{ height: '80vh' }}
       popup={true}
       dayLayoutAlgorithm={'no-overlap'}
+      selectable
+      selected={selectedEvent}
+      onSelectSlot={() => setSelectedEvent(undefined)}
     />
   );
 };

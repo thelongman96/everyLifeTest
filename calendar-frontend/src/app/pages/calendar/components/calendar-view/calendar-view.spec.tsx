@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 
 describe('CalendarView', () => {
   let onNavigate: (date: Date, view: View) => void;
-  let setSelectedEvent: (event: EltEvent) => void;
+  let setSelectedEvent: (event: EltEvent | undefined) => void;
   const mockEvent: EltEvent = {
     id: 100,
     title: 'Mock event',
