@@ -5,6 +5,14 @@ import './styles/calendar.scss';
 import { EltEvent } from '../../../../common/types';
 import { CalendarFormats } from './formats';
 import { useCalendarView } from '../../hooks/use-calendar-view';
+
+moment.locale('en-gb');
+moment.updateLocale('en-gb', {
+  week: {
+    // Set the first day of week to Monday
+    dow: 1,
+  },
+});
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop<EltEvent>(Calendar);
 
@@ -12,13 +20,15 @@ interface ICalendarViewProps {
   onNavigate: (date: Date, view: View) => void;
   events: EltEvent[];
   showIds: boolean;
-  setSelectedEvent: (event: EltEvent) => void;
+  selectedEvent?: EltEvent;
+  setSelectedEvent: (event: EltEvent | undefined) => void;
 }
 
 export const CalendarView = ({
   onNavigate,
   events,
   showIds,
+  selectedEvent,
   setSelectedEvent,
 }: ICalendarViewProps) => {
   const { components } = useCalendarView(showIds);
@@ -42,6 +52,9 @@ export const CalendarView = ({
       style={{ height: '80vh' }}
       popup={true}
       dayLayoutAlgorithm={'no-overlap'}
+      selectable
+      selected={selectedEvent}
+      onSelectSlot={() => setSelectedEvent(undefined)}
     />
   );
 };

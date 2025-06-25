@@ -25,6 +25,7 @@ export const CalendarPage = () => {
         onNavigate={onNavigate}
         events={events}
         showIds={showIds}
+        selectedEvent={selectedEvent}
         setSelectedEvent={setSelectedEvent}
       />
     </div>
