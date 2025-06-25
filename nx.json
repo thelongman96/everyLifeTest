@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "neverConnectToCloud": true,
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
@@ -22,7 +23,6 @@
       "{workspaceRoot}/bitbucket-pipelines.yml"
     ]
   },
-  "nxCloudId": "6702d2a07285ae532d35083a",
   "defaultBase": "origin/main",
   "plugins": [
     {

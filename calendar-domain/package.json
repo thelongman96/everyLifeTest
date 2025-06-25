@@ -7,6 +7,6 @@
     "tsConfigPath": "./tsconfig.mikro.json"
   },
   "devDependencies": {
-    "@mikro-orm/cli": "5.3.1"
+    "@mikro-orm/cli": "^6.3.13"
   }
 }

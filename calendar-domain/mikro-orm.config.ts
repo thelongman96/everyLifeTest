@@ -1,4 +1,4 @@
-import { entities } from './src/lib/entities';
+import { entities } from './src';
 import { MikroORMOptions, MySqlDriver } from '@mikro-orm/mysql';
 
 export default {
