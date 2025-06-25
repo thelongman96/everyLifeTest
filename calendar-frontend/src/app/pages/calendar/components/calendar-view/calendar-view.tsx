@@ -5,6 +5,14 @@ import './styles/calendar.scss';
 import { EltEvent } from '../../../../common/types';
 import { CalendarFormats } from './formats';
 import { useCalendarView } from '../../hooks/use-calendar-view';
+
+moment.locale('en-gb');
+moment.updateLocale('en-gb', {
+  week: {
+    // Set the first day of week to Monday
+    dow: 1,
+  },
+});
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop<EltEvent>(Calendar);
 

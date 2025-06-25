@@ -7,6 +7,7 @@ if (!process.env.CI) {
 export default {
   displayName: 'calendar-frontend',
   preset: '../jest.preset.js',
+  setupFilesAfterEnv: ['./test/setup-tests.ts'],
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
