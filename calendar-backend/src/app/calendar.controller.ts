@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Query,
 } from '@nestjs/common';
@@ -26,7 +27,7 @@ export class CalendarController {
   }
 
   @Delete('delete-event/:id')
-  async deleteEvent(@Param('id') id: number) {
+  async deleteEvent(@Param('id', new ParseIntPipe()) id: number) {
     await this.calendarService.deleteEvent(id);
     return { message: 'Event deleted', id };
   }
