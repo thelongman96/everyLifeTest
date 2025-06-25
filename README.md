@@ -56,26 +56,22 @@ Below is a list of tasks which need to be completed. You are allowed to use any 
 #
 ## Running the project
 
-Ensure you are running **Node v20+**.
+Ensure you are running **Node v20+** (this has been tested specifically on v20 so in case you hit problems with a higher version, try downgrading to v20).
 
 Install dependencies
 ```sh
 npm install
 ```
 
-There is a docker-compose file which start a MySQL database, backend and frontend projects. You'd first need to build a base Docker image by running
+Create a MySQL database in Docker using docker-compose
+```shell
+docker compose up -d
 ```
-docker buildx build --platform linux/arm64 . --tag nx-cli-local
+
+Serve backend and frontend (+ database schema setup)
+```shell
+npm run serve
 ```
-Note: Change `arm64` to `amd64` if you are not on MacOS (with Apple silicone).
+You should be presented with an interactive NX shell where you can switch between backend and frontend tasks to see outputs.
 
-
-You can then start all the projects up using `docker compose up -d`.
-
-If you experience issues with Docker, try running `nx reset`.
-
-If you are on a Mac and experiencing issues, then you might need to run `npm rebuild --arch=arm64 --platform=linux` as well before starting backend/frontend projects in Docker.
-
-Worst case scenario, you can run the backend and the frontend outside of Docker. You might need to create `.env.local` files with environment variables which are currently configured in `docker-compose.yml`.
-
-You can navigate to the webapp by going to http://localhost:4200 in your browser.
+You can navigate to the webapp by going to http://localhost:4004 in your browser.

@@ -9,12 +9,12 @@ export default defineConfig({
   cacheDir: '../node_modules/.vite/calendar-frontend',
 
   server: {
-    port: 4200,
+    port: 4004,
     host: true,
   },
 
   preview: {
-    port: 4300,
+    port: 4005,
     host: 'localhost',
   },
 
@@ -33,4 +33,11 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        quietDeps: true
+      }
+    }
+  }
 });

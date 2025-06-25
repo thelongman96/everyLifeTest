@@ -8,7 +8,7 @@
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "dependsOn": ["build", { "projects": ["calendar-domain"], "target": "schema-recreate" }],
       "options": {
         "buildTarget": "calendar-backend:build",
         "runBuildTargetDependencies": false,
