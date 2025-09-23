@@ -1,8 +1,27 @@
 @use "sass:color";
 @use 'react-big-calendar/lib/sass/styles' with (
-  $event-bg: #6d1b98,
-  $event-border: #4e136d,
-  $event-outline: color.adjust(#6d1b98, $lightness: 10%),
-  $today-highlight-bg: #f8f4ff
+  $event-bg: #6A9AB0,
+  $event-border:0px,
+  $today-highlight-bg: #f8f4ff,
+  $event-outline: 10px solid #000,
 );
 @use 'react-big-calendar/lib/addons/dragAndDrop/styles' as dnd-styles;
+
+.rbc-event {
+  border-left: #3A6D8C 10px solid;
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: normal;
+  font-variant-numeric: oldstyle-nums;
+}
+
+.eventComponent {
+  display: 'flex';
+  justify-content: 'center';
+  flex-direction: 'column';
+  align-items: 'center';
+  font-family: 'Georgia';
+  font-style: 'normal';
+  font-variant-numeric: oldstyle-nums;
+  font-weight: 300;
+}

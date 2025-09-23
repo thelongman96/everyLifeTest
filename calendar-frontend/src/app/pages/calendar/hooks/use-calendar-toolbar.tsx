@@ -1,21 +1,26 @@
-import moment from 'moment/moment';
-import { random } from 'lodash';
-import { EltEvent } from '../../../common/types';
+import { useEventStore } from '../../../stores/event-store';
+import { useModalStore } from '../../../stores/modal-store';
 
-export const useCalendarToolbar = (
-  addEvent: (event: Omit<EltEvent, 'id'>) => Promise<void>,
-) => {
-  const createRandomEvent = async () => {
-    // Start in the next 48h
-    const start = moment().add(random(15, 48 * 60), 'minutes');
-    // Last between 30m and 1h 30m
-    const end = start.clone().add(random(30, 90), 'minutes');
-    const title = `Random event ${random(1, 9999)}`;
+const useCalendarToolbar = () => {
+  const { selectedEvent, showIds, setShowIds } = useEventStore(
+    (state) => state,
+  );
+  const toggleModal = useModalStore((state) => state.toggleModal);
+  const createEvent = async () => {
+    toggleModal();
+  };
 
-    await addEvent({ title, start: start.toDate(), end: end.toDate() });
+  const editEvent = () => {
+    toggleModal();
   };
 
   return {
-    createRandomEvent,
+    createEvent,
+    editEvent,
+    selectedEvent,
+    showIds,
+    setShowIds,
   };
 };
+
+export default useCalendarToolbar;

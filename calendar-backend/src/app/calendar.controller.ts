@@ -6,6 +6,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 
@@ -24,6 +25,14 @@ export class CalendarController {
   async createEvent(@Body() payload: EventPayload) {
     const id = await this.calendarService.addEvent(payload);
     return { message: 'Event created', id };
+  }
+
+  @Put('update-event/:id')
+  async updateEvent(
+    @Param('id', new ParseIntPipe()) id: number,
+    @Body() payload: EventPayload,
+  ) {
+    return await this.calendarService.updateEvent(id, payload);
   }
 
   @Delete('delete-event/:id')

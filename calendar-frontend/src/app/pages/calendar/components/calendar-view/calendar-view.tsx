@@ -4,7 +4,7 @@ import moment from 'moment';
 import './styles/calendar.scss';
 import { EltEvent } from '../../../../common/types';
 import { CalendarFormats } from './formats';
-import { useCalendarView } from '../../hooks/use-calendar-view';
+import useCalendarView from '../../hooks/use-calendar-view';
 
 moment.locale('en-gb');
 moment.updateLocale('en-gb', {
@@ -19,22 +19,22 @@ const DnDCalendar = withDragAndDrop<EltEvent>(Calendar);
 interface ICalendarViewProps {
   onNavigate: (date: Date, view: View) => void;
   events: EltEvent[];
-  showIds: boolean;
   selectedEvent?: EltEvent;
-  setSelectedEvent: (event: EltEvent | undefined) => void;
+  updateEvent: (event: EltEvent) => Promise<void>;
 }
 
 export const CalendarView = ({
   onNavigate,
   events,
-  showIds,
-  selectedEvent,
-  setSelectedEvent,
+  updateEvent,
 }: ICalendarViewProps) => {
-  const { components } = useCalendarView(showIds);
-
-  const onEventDrop = () => console.log('todo');
-  const onEventResize = () => console.log('todo');
+  const {
+    components,
+    onEventDrop,
+    onEventResize,
+    selectedEvent,
+    setSelectedEvent,
+  } = useCalendarView(updateEvent);
 
   return (
     <DnDCalendar
@@ -54,7 +54,7 @@ export const CalendarView = ({
       dayLayoutAlgorithm={'no-overlap'}
       selectable
       selected={selectedEvent}
-      onSelectSlot={() => setSelectedEvent(undefined)}
+      onSelectSlot={() => setSelectedEvent(null)}
     />
   );
 };

@@ -1,33 +1,43 @@
 import { CalendarView } from './components/calendar-view/calendar-view';
 import { CalendarToolbar } from './components/calendar-toolbar/calendar-toolbar';
 import { useCalendar } from './hooks/use-calendar';
+import Modal from './components/modal/event-modal';
+import EventForm from './components/event-form/event-form';
 
 export const CalendarPage = () => {
   const {
+    handleSaveClick,
+    handleInputChange,
+    formData,
+    errors,
     events,
-    addEvent,
     onNavigate,
-    showIds,
-    setShowIds,
-    selectedEvent,
-    setSelectedEvent,
+    updateEvent,
+    isLoading,
+    disabled,
+    isEditing,
   } = useCalendar();
 
   return (
     <div>
-      <CalendarToolbar
-        addEvent={addEvent}
-        showIds={showIds}
-        setShowIds={setShowIds}
-        selectedEvent={selectedEvent}
-      />
+      <CalendarToolbar />
       <CalendarView
         onNavigate={onNavigate}
         events={events}
-        showIds={showIds}
-        selectedEvent={selectedEvent}
-        setSelectedEvent={setSelectedEvent}
+        updateEvent={updateEvent}
       />
+      <Modal
+        handleSave={handleSaveClick}
+        loading={isLoading}
+        disabled={disabled}
+      >
+        <EventForm
+          handleInputChange={handleInputChange}
+          formData={formData}
+          errors={errors}
+          isEditing={isEditing}
+        />
+      </Modal>
     </div>
   );
 };

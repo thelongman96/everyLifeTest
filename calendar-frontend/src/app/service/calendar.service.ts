@@ -2,6 +2,7 @@ import { ApiService } from './api.service';
 import { AxiosResponse } from 'axios';
 import { Moment } from 'moment';
 import { ICalendarEvent } from './types';
+import { EltEvent } from '../common/types';
 
 export class CalendarService extends ApiService {
   async getEventsForRange(
@@ -19,6 +20,25 @@ export class CalendarService extends ApiService {
     end: Moment,
   ): Promise<AxiosResponse<{ message: string; id: number }>> {
     return this._axios.post('/api/calendar/create-event', {
+      name,
+      start: start.toISOString(),
+      end: end.toISOString(),
+    });
+  }
+
+  async updateEvent(
+    id: number,
+    name: string,
+    start: Moment,
+    end: Moment,
+  ): Promise<
+    AxiosResponse<{
+      statusCode?: number;
+      message: string;
+      event: EltEvent;
+    }>
+  > {
+    return this._axios.put(`/api/calendar/update-event/${id}`, {
       name,
       start: start.toISOString(),
       end: end.toISOString(),

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomButtonComponent renders correctly 1`] = `
+<div>
+  <div
+    class="customButton__container"
+  >
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary customButton__button css-1uent87-MuiButtonBase-root-MuiButton-root"
+      data-testid="test_btn"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-loadingWrapper"
+        style="display: contents;"
+      />
+      test
+    </button>
+  </div>
+</div>
+`;

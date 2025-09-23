@@ -3,20 +3,47 @@ import { CalendarView } from './calendar-view';
 import { View } from 'react-big-calendar';
 import { EltEvent } from '../../../../common/types';
 import '@testing-library/jest-dom';
+import * as useCalendarView from '../../hooks/use-calendar-view';
+
+let showIds = false;
+const getCustomCalendarEventComponentMock =
+  () =>
+  ({ event }: { event: EltEvent }) => {
+    return (
+      <span className="eventComponent">
+        <strong>{event.title}</strong>
+        {showIds ? <div>id: {event.id}</div> : ''}
+      </span>
+    );
+  };
+
+const componentsMock = { event: getCustomCalendarEventComponentMock() };
+const mockOnEventDrop = jest.fn();
+const mockOnEventResize = jest.fn();
+const mockSetSelectedEvent = jest.fn();
+const mockSelectedEvent = {
+  id: 100,
+  title: 'Mock event',
+  start: new Date('2024-10-11T12:15:00Z'),
+  end: new Date('2024-10-11T12:45:00Z'),
+};
+const useCalendarViewValues = {
+  components: componentsMock,
+  onEventDrop: mockOnEventDrop,
+  onEventResize: mockOnEventResize,
+  selectedEvent: null,
+  setSelectedEvent: mockSetSelectedEvent,
+};
+
+const mockUseCalendarView = useCalendarView;
+mockUseCalendarView.default = () => useCalendarViewValues;
 
 describe('CalendarView', () => {
   let onNavigate: (date: Date, view: View) => void;
-  let setSelectedEvent: (event: EltEvent | undefined) => void;
-  const mockEvent: EltEvent = {
-    id: 100,
-    title: 'Mock event',
-    start: new Date('2024-10-11T12:15:00Z'),
-    end: new Date('2024-10-11T12:45:00Z'),
-  };
+  const mockUpdateEvent = jest.fn();
 
   beforeEach(() => {
     onNavigate = jest.fn();
-    setSelectedEvent = jest.fn();
     jest.useFakeTimers().setSystemTime(new Date('2024-10-11T10:30:00Z'));
   });
 
@@ -29,8 +56,7 @@ describe('CalendarView', () => {
       <CalendarView
         onNavigate={onNavigate}
         events={[]}
-        showIds={false}
-        setSelectedEvent={setSelectedEvent}
+        updateEvent={mockUpdateEvent}
       />,
     );
 
@@ -41,9 +67,8 @@ describe('CalendarView', () => {
     const { container } = render(
       <CalendarView
         onNavigate={onNavigate}
-        events={[mockEvent]}
-        showIds={false}
-        setSelectedEvent={setSelectedEvent}
+        events={[mockSelectedEvent]}
+        updateEvent={mockUpdateEvent}
       />,
     );
 
@@ -58,12 +83,12 @@ describe('CalendarView', () => {
   });
 
   it('should show event ids if flag is set', () => {
+    showIds = true;
     render(
       <CalendarView
         onNavigate={onNavigate}
-        events={[mockEvent]}
-        showIds={true}
-        setSelectedEvent={setSelectedEvent}
+        events={[mockSelectedEvent]}
+        updateEvent={mockUpdateEvent}
       />,
     );
 
