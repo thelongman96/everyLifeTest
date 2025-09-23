@@ -13,7 +13,7 @@ import { useEventStore } from '../../../stores/event-store';
 import { useModalStore } from '../../../stores/modal-store';
 import { toast } from 'react-toastify';
 
-export const useCalendar = () => {
+const useCalendar = () => {
   const calendarService = new CalendarService();
   const [events, setEvents] = useState<EltEvent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -144,6 +144,7 @@ export const useCalendar = () => {
   type FormField = keyof FormData;
 
   const handleInputChange = (field: FormField) => (value: string | Moment) => {
+    console.log(field, value)
     setFormData({
       ...formData,
       [field]: value,
@@ -175,6 +176,8 @@ export const useCalendar = () => {
       toast.error(newErrors.end);
     }
 
+    console.log(newErrors, formData);
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -186,7 +189,9 @@ export const useCalendar = () => {
       start: formData.start.toDate(),
       end: formData.end.toDate(),
     };
+    console.log(1, formData, event)
     if (validateForm()) {
+      console.log(2)
       selectedEvent
         ? updateEvent({
             ...event,
@@ -194,6 +199,7 @@ export const useCalendar = () => {
           })
         : addEvent(event);
     } else {
+      console.log(3)
       setIsLoading(false);
     }
   };
@@ -218,3 +224,5 @@ export const useCalendar = () => {
     isEditing,
   };
 };
+
+export default useCalendar;

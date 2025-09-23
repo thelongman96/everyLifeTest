@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useEventStore } from '../../../stores/event-store';
 import { useModalStore } from '../../../stores/modal-store';
 
@@ -11,7 +12,11 @@ const useCalendarToolbar = () => {
   };
 
   const editEvent = () => {
-    toggleModal();
+    if (selectedEvent) {
+      toggleModal();
+    } else {
+      toast.error('Please select an event to edit');
+    }
   };
 
   return {

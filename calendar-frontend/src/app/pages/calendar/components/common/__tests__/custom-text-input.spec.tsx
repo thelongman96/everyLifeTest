@@ -46,16 +46,14 @@ describe('CustomTextInputComponent', () => {
     expect(container).toMatchSnapshot();
   });
 
-  describe('On Change - ', () => {
-    it('should call onChange', async () => {
-      renderCustomTextInput();
+  it('On Change - should call onChange', async () => {
+    renderCustomTextInput();
 
-      const input = screen.getByTestId('test_input');
-      await act(async () => {
-        await fireEvent.change(input, { target: { value: 'test' } });
-      });
-
-      expect(onChangeMock).toHaveBeenCalled();
+    const input = screen.getByTestId('test_input');
+    await act(async () => {
+      await fireEvent.change(input, { target: { value: 'test' } });
     });
+
+    expect(onChangeMock).toHaveBeenCalled();
   });
 });

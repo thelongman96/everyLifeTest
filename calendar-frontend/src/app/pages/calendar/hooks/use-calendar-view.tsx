@@ -15,7 +15,9 @@ const getCustomCalendarEventComponent =
   };
 
 const useCalendarView = (updateEvent: (event: EltEvent) => void) => {
-  const { selectedEvent, storeSelectedEvent, showIds } = useEventStore();
+  const { selectedEvent, storeSelectedEvent, showIds } = useEventStore(
+    (state) => state,
+  );
   const components = useMemo(
     () => ({ event: getCustomCalendarEventComponent({ showIds }) }),
     [showIds],

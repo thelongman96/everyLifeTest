@@ -52,7 +52,7 @@ const CustomTextInput = ({
         error={errorsArray.length > 0}
         onChange={(e) => {
           if (onChange) {
-            console.log('calling');
+            onChange(e.target.value);
           }
         }}
         onKeyUp={onKeyUp}
