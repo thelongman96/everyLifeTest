@@ -38,13 +38,17 @@ export class AuthService {
       throw new BadRequestException('Please enter a valid password');
 
 		const user = await this.userRepository.findUser(loginPayload.email);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
     const isMatch = await bcrypt.compare(loginPayload.password, user?.password);
 
     if (!isMatch) {
       throw new UnauthorizedException();
     }
 
-    const payload = { sub: user.id, email: user.email };
+    const payload = { userId: user.id, email: user.email };
 
     return {
 			access_token: await this.jwtService.signAsync(payload),
@@ -54,4 +58,17 @@ export class AuthService {
 	async fetchAll() {
 		return this.userRepository.getAllUsers();
 	}
+
+  async fetchProfile(id: number) {
+		const user = await this.userRepository.findUserById(id);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
+  }
+  
 }

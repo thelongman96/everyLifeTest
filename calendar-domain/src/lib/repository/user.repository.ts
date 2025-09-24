@@ -36,6 +36,13 @@ export class UserRepository extends EntityRepository<UserEntity> {
 		return user;
 	}
 
+	async findUserById(
+		id: number
+	): Promise<UserEntity> {
+		const user = await this.findOne({ id });
+		return user;
+	}
+
 	// async findForRange(start: Date, end: Date): Promise<CalendarEventEntity[]> {
 	// 	// By default, mikro-orm uses Knex query syntax but you can use raw queries like this if it's easier:
 	// 	// const rawResult = await this.em.getKnex().raw<CalendarEventEntity[][]>('select * from elt_event where start <= ? AND end >= ?', [end, start])
