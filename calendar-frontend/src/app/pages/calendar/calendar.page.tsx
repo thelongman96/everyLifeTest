@@ -1,6 +1,6 @@
 import { CalendarView } from './components/calendar-view/calendar-view';
 import { CalendarToolbar } from './components/calendar-toolbar/calendar-toolbar';
-import { useCalendar } from './hooks/use-calendar';
+import useCalendar from './hooks/use-calendar';
 import Modal from './components/modal/event-modal';
 import EventForm from './components/event-form/event-form';
 
