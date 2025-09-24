@@ -30,6 +30,10 @@ const useCalendar = () => {
   const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
+    storeSelectedEvent({ selectedEvent: null });
+  }, []);
+
+  useEffect(() => {
     if (selectedEvent) {
       setIsEditing(true);
       setFormData({

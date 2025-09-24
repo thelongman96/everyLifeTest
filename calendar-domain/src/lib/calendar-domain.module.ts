@@ -5,6 +5,8 @@ import { LoadStrategy, MikroORM } from '@mikro-orm/core';
 import { entities } from './entities';
 import { CalendarEventEntity } from './entity/calendar-event.entity';
 import { CalendarEventRepository } from './repository/calendar-event.repository';
+import { UserRepository } from './repository/user.repository';
+import { UserEntity } from './entity/user.entity';
 
 @Global()
 @Module({})
@@ -37,8 +39,15 @@ export class CalendarDomainModule {
             em.getRepository(CalendarEventEntity),
           inject: [EntityManager],
         },
+        UserRepository,
+        {
+          provide: UserRepository,
+          useFactory: (em: EntityManager) =>
+            em.getRepository(UserEntity),
+          inject: [EntityManager],
+        }
       ],
-      exports: [CalendarEventRepository],
+      exports: [CalendarEventRepository, UserRepository],
     };
   }
 
